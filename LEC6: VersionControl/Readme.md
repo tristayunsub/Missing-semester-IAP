@@ -25,8 +25,14 @@
 52:53    git log --all --graph --decorate --oneline (more compact view)
 
 56:27    git merge cat (can do cat dog) 
+                                     
+                                     
 58:51    git merge --abort
+                                     
+                                     
 1:00:41    git add . , git merge --continue > git commit -m <msg> / git commit
+  
+  
 59:37    <<<<< HEAD points to last snapshot in master branch, >>>> dog points to the branch you're trying to merge.
 
 
