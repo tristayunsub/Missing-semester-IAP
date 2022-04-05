@@ -237,9 +237,172 @@ if __name__ == '__main__':
   ```
   
   
+  so git diff function shows you changed line
+ 
+ $ git log --all --graph --decorate --oneline
+ 
+ ```
+* ca9e802 (HEAD -> dog) add dog functionality
+| * 666a2c2 (cat) Add cat functionalitty
+|/
+* caded37 (master) Add animal.py
+* 4f78b03 asd
+* 8ac73ef Add hello.txt
+```
+ 
+ git branch and git merge
+ 
+ i wanna merge cat functionality and dog functionality into master
+ 
+ Fast-forward
+what fast-forward mean?
+
+ 
+ 
+Auto-merging animal.py
+CONFLICT (content): Merge conflict in animal.py
+ 
+``` 
+def main():
+<<<<<<< HEAD
+    if sys.argv[1] ==  'cat':
+        cat()
+    else:
+        default()
+
+    default()
+=======          /conflict marker you should delete them
+    if sys.argv[1] == 'dog':
+        dog()
+    else:
+         default()
+>>>>>>> dog
+
+if __name__ == '__main__':
+    main()
+```
+to
+ ```
+def main():
+
+    if sys.argv[1] ==  'cat':
+        cat()
+
+
+    elif sys.argv[1] == 'dog':
+        dog()
+    else:
+         default()
+
+```
+ 
+ like this^
+ 
+ git merge --continue
+error: Committing is not possible because you have unmerged files.
+hint: Fix them up in the work tree, and then use 'git add/rm <file>'
+hint: as appropriate to mark resolution and make a commit.
+fatal: Exiting because of an unresolved conflict.
+ 
+ 
+ $ git merge --continue
+[master bde6558] Merge branch 'dog'
+ 
+ 
+``` 
+ bde6558 (HEAD -> master) Merge branch 'dog'
+|\
+| * ca9e802 (dog) add dog functionality
+* | 666a2c2 (cat) Add cat functionalitty
+```
+ 
+ mkdir remote
+ 
+ cd remote
+ 
+ git init --bare
+Initialized empty Git repository in C:/Users/엘리트북/demo/remote/
+
+git remote add origin
+ or git remote add <name> <url>
+ git remote add origin /remote
+
+ git push <remote> <local branch>:<remote branch>
+ 
+ git push origin master:master
+ 
+ (HEAD -> master, origin/master) merge branch
+ 
+ git add animal.py
+ git commit -m 'x'
+ 
+ (HEAD -> master) X
+ (origin/master) merge branch'dog'
+ 
+ git clone remote demo2
+ Cloning into 'demo2'...
+warning: You appear to have cloned an empty repository.
+done.
+
+ cd demo2
+
+ ```
+ git branch --set-upstream-to=origin/master
+ ```
+ means Branch 'master' set up to track branch 'master' from 'origin'
+ 
+git branch -vv 
+
+
+ 
+git fetch 
+ 
+ git fetch; git merge
+ 
+ git pull
+ 
+ fast-forward 
+ 
+ git remote 
+ 
+ sending your changes into remote from your local machine
+ 
+ git config
+ 
+ vim ~/.gitconfig
+ 
+ git bisect?
+ 
+ 7.10 Git 도구 - Git으로 버그 찾기
+ git blame 과 git bisect
+ https://git-scm.com/book/ko/v2/Git-%EB%8F%84%EA%B5%AC-Git%EC%9C%BC%EB%A1%9C-%EB%B2%84%EA%B7%B8-%EC%B0%BE%EA%B8%B0
+
+ 버그를 찾을 때 먼저 그 코드가 왜, 언제 추가했는지 알고 싶을 것이다. 이때는 파일 어노테이션을 활용한다. 한 줄 한 줄 마지막으로 커밋한 사람이 누구인지, 언제 마지막으로 커밋했는지 볼 수 있다. 어떤 메소드에 버그가 있으면 git blame 명령으로 그 메소드의 각 라인을 누가 언제 마지막으로 고쳤는지 찾아낼 수 있다.
+ 
+ 
+ git blame 명령을 사용하여 어떤 커밋이나 커밋 저자가 리눅스 커널의 Makefile 각 라인을 수정했는지 확인해보고자 한다. -L 옵션을 사용하여 전체 파일이 아니라 69 라인부터 82 라인까지 제한하여 부분적으로 확인할 수도 있다.
+
+git blame -L 1,10 animal.py
+ 
+ 
+ 이진 탐색
+파일 어노테이션은 특정 이슈와 관련된 커밋을 찾는 데에도 좋다. 문제가 생겼을 때 의심스러운 커밋이 수십, 수백 개에 이르는 경우 도대체 어디서부터 시작해야 할지 모를 수 있다. 이때는 git bisect 명령이 유용하다. bisect 명령은 커밋 히스토리를 이진 탐색 방법으로 좁혀 주기 때문에 이슈와 관련된 커밋을 최대한 빠르게 찾아낼 수 있도록 도와준다.
+
+코드를 운용 환경에 배포하고 난 후에 개발할 때 발견하지 못한 버그가 있다고 보고받았다. 그런데 왜 그런 현상이 발생하는지 아직 이해하지 못하는 상황을 가정해보자. 해당 이슈를 다시 만들고 작업하기 시작했는데 뭐가 잘못됐는지 알아낼 수 없다. 이럴 때 bisect 명령을 사용하여 코드를 뒤져 보는 게 좋다. 먼저 git bisect start 명령으로 이진 탐색을 시작하고 git bisect bad 를 실행하여 현재 커밋에 문제가 있다고 표시를 남기고 나서 문제가 없는 마지막 커밋을 git bisect good <good_commit> 명령으로 표시한다.
   
   
-  
+ git bisect start, bad, good 
+ 
+ 수백 개의 커밋들 중에서 버그가 만들어진 커밋을 찾는 데 몇 분밖에 걸리지 않는다. 프로젝트가 정상적으로 수행되면 0을 반환하고 문제가 있으면 1을 반환하는 스크립트를 만든다면, 이 git bisect 과정을 완전히 자동으로 수행할 수 있다. 먼저 bisect start 명령으로 이진 탐색에 사용할 범위를 알려준다. 위에서 한 것처럼 문제가 있다고 아는 커밋과 문제가 없다고 아는 커밋을 넘기면 된다.
+
+ ```
+$ git bisect start HEAD v1.0
+$ git bisect run test-error.sh
+ ```
+ 
+ 
+ 
+ thank you
   
   
 31:42    git add . , git commit -m <msg> , git log , git cat-file -p <8d-commit-hash/ branch-hash/ file-hash>
