@@ -56,6 +56,8 @@ each every state points back to which state preceded
               fix-encoding -- bug its human readable name
               references are immuatable
               
-         ![git_graph](https://user-images.githubusercontent.com/75001605/161687535-b79e65fb-700a-45e9-a28a-7cfaeb395709.png)
+ 
+
+![git_graph](https://user-images.githubusercontent.com/75001605/161687535-b79e65fb-700a-45e9-a28a-7cfaeb395709.png)
 
             
