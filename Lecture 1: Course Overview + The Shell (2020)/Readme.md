@@ -1,2 +1,2 @@
-Lecture 1: Course Overview + The Shell (2020)
+Lecture 1: The Shell (2020)
 ===
