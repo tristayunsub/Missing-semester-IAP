@@ -320,11 +320,18 @@ fatal: Exiting because of an unresolved conflict.
  
  cd remote
  
+ ```
  git init --bare
 Initialized empty Git repository in C:/Users/엘리트북/demo/remote/
-
+```
+ 
+ 
 git remote add origin
+ 
+ 
  or git remote add <name> <url>
+ 
+ 
  git remote add origin /remote
 
  git push <remote> <local branch>:<remote branch>
@@ -348,8 +355,10 @@ done.
 
  ```
  git branch --set-upstream-to=origin/master
- ```
+ 
  means Branch 'master' set up to track branch 'master' from 'origin'
+ ```
+ 
  
 git branch -vv 
 
@@ -357,19 +366,28 @@ git branch -vv
  
 git fetch 
  
+ 
  git fetch; git merge
+ 
  
  git pull
  
+ 
  fast-forward 
  
+ 
+ ```
  git remote 
  
  sending your changes into remote from your local machine
+ ```
+ 
  
  git config
  
  vim ~/.gitconfig
+ 
+ 
  
  git bisect?
  
