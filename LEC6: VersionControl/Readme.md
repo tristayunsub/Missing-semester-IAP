@@ -1,7 +1,12 @@
 $ ls .git
+
+
 HEAD  config  description  hooks/  info/  objects/  refs/
+
 git help init
+
 git status 
+
 On branch master
 
 No commits yet
@@ -186,10 +191,14 @@ index 9409bd5..1bc2148 100644
   shows us chaneged line
  
   $ git commit
-[cat 666a2c2] Add cat functionalitty
+
+ [cat 666a2c2] Add cat functionalitty
  1 file changed, 7 insertions(+)
 
-  git log --all --graph --decorate --oneline
+ 
+ git log --all --graph --decorate --oneline
+ 
+ 
  * 666a2c2 (HEAD -> cat) Add cat functionalitty
 * caded37 (master) Add animal.py
 * 4f78b03 asd
